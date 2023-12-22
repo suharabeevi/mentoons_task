@@ -5,7 +5,7 @@ import bcrypt from "bcrypt";
 export const usercontroller = () => {
   const adduser = async (req, res, next) => {
     try {
-      console.log(req.body);
+      // console.log(req.body);
       const { username, password, email } = req.body;
 
       if (!username || !password || !email) {
@@ -75,8 +75,6 @@ export const usercontroller = () => {
   return {
     adduser,
     getuser,
-    addproducts,
-    ViewProducts,
-    addedtocart
+    
   };
 }
