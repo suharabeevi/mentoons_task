@@ -2,15 +2,19 @@ import { Router } from "express";
 import { usercontroller } from "../controllers/usercontroller.js";
 import { ProductController } from "../controllers/productcontroller.js";
 import upload from "../utils/multer.js";
+import verifyToken from "../middleware/Authmiddleware.js";
 const userRouter =Router()
 const UserController = usercontroller()
-const Productontroller = ProductController()
+const Productcontroller = ProductController()
 
 
 // userlogin and signup
 userRouter.route('/usersignup').post(UserController.adduser).get(UserController.getuser)
 // adding product and getting all the product
-userRouter.route('/addproduct').post(upload,Productontroller.addproduct).get(Productontroller.getallproducts)
+userRouter.route('/addproduct').post(upload,Productcontroller.addproduct).get(Productcontroller.getallproducts)
+//getting Product by id
+userRouter.route('/getprodcutById/:prodcutId').get(Productcontroller.GetProductById)
 
+// userRouter.route('/create-checkout-session').post(ProductController.)
 
 export default userRouter

@@ -1,6 +1,8 @@
 import AppError from "../utils/appError.js";
 import { HttpStatus } from "../config/httpStatus.js";
 import Product from "../databse/models/productModel.js";
+import mongoose from "mongoose";
+
 export const ProductController = () => {
   const addproduct = async (req, res, next) => {
     try {
@@ -54,8 +56,27 @@ export const ProductController = () => {
         .json({ message: "Internal server Error" });
     }
   };
+  const GetProductById = async (req, res, next) => {
+    try {
+      console.log(req.params);
+      const { productId } = req.params;
+      let getProduct = await Product.findOne({ productId });
+      if (!getProduct) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+      res
+        .status(HttpStatus.OK)
+        .json({ message: "prodcut get successfully", getProduct });
+    } catch (error) {
+      console.error(error);
+      res
+        .status(HttpStatus.INTERNAL_SERVER_ERROR)
+        .json({ message: "Internal server Error" });
+    }
+  };
   return {
     addproduct,
     getallproducts,
+    GetProductById,
   };
 };
