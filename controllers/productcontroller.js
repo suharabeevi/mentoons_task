@@ -36,7 +36,26 @@ export const ProductController = () => {
         .json({ message: "Internal Server Error" });
     }
   };
+  const getallproducts = async (req, res, next) => {
+    try {
+      const allproducts = await Product.find();
+      if (allproducts.length === 0) {
+        return res.status(HttpStatus.NOT_FOUND).json({
+          message: "products not available",
+        });
+      }
+      res
+        .status(HttpStatus.OK)
+        .json({ message: "fetch all the prodcuts", allproducts });
+    } catch (error) {
+      console.error(error);
+      res
+        .status(HttpStatus.INTERNAL_SERVER_ERROR)
+        .json({ message: "Internal server Error" });
+    }
+  };
   return {
     addproduct,
+    getallproducts,
   };
 };

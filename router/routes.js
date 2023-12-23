@@ -10,7 +10,7 @@ const Productontroller = ProductController()
 // userlogin and signup
 userRouter.route('/usersignup').post(UserController.adduser).get(UserController.getuser)
 // adding product and getting all the product
-userRouter.route('/addproduct').post(upload,Productontroller.addproduct)
+userRouter.route('/addproduct').post(upload,Productontroller.addproduct).get(Productontroller.getallproducts)
 
 
 export default userRouter
