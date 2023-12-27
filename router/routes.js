@@ -17,6 +17,6 @@ userRouter.route('/addproduct').post(upload,Productcontroller.addproduct).get(Pr
 //getting Product by id
 userRouter.route('/getprodcutById/:prodcutId').get(verifyToken,Productcontroller.GetProductById)
 
-userRouter.route('/create-checkout-session').post(StripeController.checkout)
+userRouter.route('/create-checkout-session/:prodcutId').post(verifyToken,StripeController.checkout)
 
 export default userRouter

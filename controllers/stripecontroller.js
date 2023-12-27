@@ -1,6 +1,7 @@
 import stripe from "stripe";
 import { HttpStatus } from "../config/httpStatus.js";
 const YOUR_DOMAIN = 'http://localhost:8080';
+import Product from "../databse/models/productModel.js";
 const stripeInstance = stripe(process.env.STRIPE_SECRET_KEY);
 
 export const stripecontroller = () => {
@@ -67,11 +68,15 @@ export const stripecontroller = () => {
 //     .json({ message: "Internal server Error" + error });
 //     }
 // }
+
 const checkout = async(req,res,next)=>{
     try{
+
+        const { productId } = req.params;
+        let getProduct = await Product.findOne({ productId });
         const session = await stripeInstance.checkout.sessions.create({
             // customer_name:'suharabeevi',
-            customer_email:'sairasuhara12345@gmail.com',
+            // customer_email:'sairasuhara12345@gmail.com',
             shipping_address_collection:{
                 "allowed_countries": ["US", "CA"], 
             },
@@ -82,9 +87,9 @@ const checkout = async(req,res,next)=>{
                 price_data: {   
                   currency: "inr",
                   product_data: {
-                    name: 'shirt',
+                    name: getProduct.productitle,
                   },
-                  unit_amount: 656666*100,
+                  unit_amount:getProduct.price *100,
                 },
                 quantity: 1,
               },

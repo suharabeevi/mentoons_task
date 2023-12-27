@@ -22,7 +22,6 @@ const storageOptions = {
     }
   }
 };
-
 const storage = new CloudinaryStorage(storageOptions);
 const upload = multer({ storage: storage }).single('productimage');
 
