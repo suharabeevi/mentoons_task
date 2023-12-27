@@ -15,11 +15,8 @@ userRouter.route('/usersignup').post(UserController.adduser).get(UserController.
 // adding product and getting all the product
 userRouter.route('/addproduct').post(upload,Productcontroller.addproduct).get(Productcontroller.getallproducts)
 //getting Product by id
-userRouter.route('/getprodcutById/:prodcutId').get(Productcontroller.GetProductById)
+userRouter.route('/getprodcutById/:prodcutId').get(verifyToken,Productcontroller.GetProductById)
 
-userRouter.route('/create-customer').post(StripeController.CraeteNewcustomer)
-userRouter.route('/add-card').post(StripeController.addNewCard)
-userRouter.route('/Create-Charges').post(StripeController.CraeteNewcustomer)
 userRouter.route('/create-checkout-session').post(StripeController.checkout)
 
 export default userRouter
